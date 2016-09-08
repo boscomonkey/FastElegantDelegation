@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Yan Rabovik. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "FEDelegation.h"
 #import "FEDRuntime.h"
 
@@ -22,5 +22,5 @@
 #import "MAObjCRuntime+FEDAdditions.h"
 
 
-@interface FEDTests : SenTestCase
+@interface FEDTests : XCTestCase
 @end

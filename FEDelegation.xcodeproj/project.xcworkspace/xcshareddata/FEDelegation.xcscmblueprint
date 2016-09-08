@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "AB9D9FEFCE08E5B502644312B3F456939F83985C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "18030B5112E4743F2CDD69CFF074D529EA063310" : 0,
+    "AB9D9FEFCE08E5B502644312B3F456939F83985C" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F48A8E7B-9C2B-4615-B5C4-BA59AD48CE11",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "18030B5112E4743F2CDD69CFF074D529EA063310" : "FastElegantDelegation\/Support\/MAObjCRuntime\/",
+    "AB9D9FEFCE08E5B502644312B3F456939F83985C" : "FastElegantDelegation\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FEDelegation",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FEDelegation.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/mikeash\/MAObjCRuntime.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "18030B5112E4743F2CDD69CFF074D529EA063310"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:rabovik\/FastElegantDelegation.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AB9D9FEFCE08E5B502644312B3F456939F83985C"
+    }
+  ]
+}

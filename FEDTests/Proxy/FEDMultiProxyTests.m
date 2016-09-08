@@ -22,9 +22,9 @@
         proxy = [FEDMultiProxy proxyWithDelegates:@[delegate1,delegate2]
                                          protocol:nil
                                   retainDelegates:NO];
-        STAssertTrue(2 == proxy.fed_realDelegates.count, @"");
+        XCTAssertTrue(2 == proxy.fed_realDelegates.count, @"");
     }
-    STAssertTrue(1 == proxy.fed_realDelegates.count, @"");
+    XCTAssertTrue(1 == proxy.fed_realDelegates.count, @"");
 }
 
 -(void)testMultiProxy{
@@ -36,25 +36,25 @@
                 protocol:@protocol(FEDExamplePersonProtocol)
                 retainDelegates:NO];
     // test return first value
-    STAssertTrue(30 == [proxy age], @"");
+    XCTAssertTrue(30 == [proxy age], @"");
     // test mapToArray
     NSArray *array;
     [[proxy mapToArray:&array] name];
-    STAssertTrue(([array isEqualToArray:@[@"Bob",@"John",@"Alice"]]), @"");
+    XCTAssertTrue(([array isEqualToArray:@[@"Bob",@"John",@"Alice"]]), @"");
     // test returns first after previous mapToArray
-    STAssertTrue([@"Bob" isEqualToString:[proxy name]], @"");
+    XCTAssertTrue([@"Bob" isEqualToString:[proxy name]], @"");
     // test mapToArray with incorrect method signature
-    STAssertThrows([[proxy mapToArray:&array] age], @"");
+    XCTAssertThrows([[proxy mapToArray:&array] age], @"");
     // test mapToBlock
     __block int iteration = 0;
     NSArray *ages = @[@30,@40,@20];
     [[proxy mapToBlock:^(NSInvocation *invocation) {
         NSUInteger age;
         [invocation getReturnValue:&age];
-        STAssertTrue((age == [ages[iteration++] unsignedIntegerValue]), @"");
+        XCTAssertTrue((age == [ages[iteration++] unsignedIntegerValue]), @"");
     }] age];
     // test returns first after previous mapToBlock
-    STAssertTrue([@"Bob" isEqualToString:[proxy name]], @"");
+    XCTAssertTrue([@"Bob" isEqualToString:[proxy name]], @"");
 }
 
 -(void)testDelegator{
@@ -65,18 +65,18 @@
     [delegator addDelegate:bob];
     [delegator addDelegate:john];
     [delegator addDelegate:alice];
-    STAssertTrue(([@[@"Bob",@"John",@"Alice"] isEqualToArray:[delegator names]]),@"");
-    STAssertTrue(40 == [delegator maxAge],@"");
+    XCTAssertTrue(([@[@"Bob",@"John",@"Alice"] isEqualToArray:[delegator names]]),@"");
+    XCTAssertTrue(40 == [delegator maxAge],@"");
     [delegator removeDelegate:john];
-    STAssertTrue(([@[@"Bob",@"Alice"] isEqualToArray:[delegator names]]),@"");
-    STAssertTrue(30 == [delegator maxAge],@"");
+    XCTAssertTrue(([@[@"Bob",@"Alice"] isEqualToArray:[delegator names]]),@"");
+    XCTAssertTrue(30 == [delegator maxAge],@"");
     [delegator removeDelegate:bob];
     [delegator removeDelegate:alice];
-    STAssertTrue(([@[] isEqualToArray:[delegator names]]),@"");
-    STAssertTrue(0 == [delegator maxAge],@"");
+    XCTAssertTrue(([@[] isEqualToArray:[delegator names]]),@"");
+    XCTAssertTrue(0 == [delegator maxAge],@"");
     [delegator addDelegate:alice];
-    STAssertTrue(([@[@"Alice"] isEqualToArray:[delegator names]]),@"");
-    STAssertTrue(20 == [delegator maxAge],@"");
+    XCTAssertTrue(([@[@"Alice"] isEqualToArray:[delegator names]]),@"");
+    XCTAssertTrue(20 == [delegator maxAge],@"");
 }
 
 -(void)testMapToArraySyntax{
@@ -89,11 +89,11 @@
                     retainDelegates:NO];
         NSArray *array;
         [[proxy mapToArray:&array] name];
-        STAssertTrue(([@[@"Bob"] isEqualToArray:array]), @"");
+        XCTAssertTrue(([@[@"Bob"] isEqualToArray:array]), @"");
         weakArray = array;
     }
     id strongArray = weakArray;
-    STAssertNil(strongArray, @"");
+    XCTAssertNil(strongArray, @"");
 }
 
 -(void)testFlattenMappedArray{
@@ -103,9 +103,9 @@
                                  retainDelegates:NO];
     NSArray *array;
     [[proxy mapToArray:&array flatten:YES] sampleArray];
-    STAssertTrue(([array isEqualToArray:@[@3,@4]]), @"");
+    XCTAssertTrue(([array isEqualToArray:@[@3,@4]]), @"");
     [[proxy mapToArray:&array flatten:YES] sampleSet];
-    STAssertTrue(([array isEqualToArray:@[@1,@2]]), @"%@",array);
+    XCTAssertTrue(([array isEqualToArray:@[@1,@2]]), @"%@",array);
 }
 
 @end

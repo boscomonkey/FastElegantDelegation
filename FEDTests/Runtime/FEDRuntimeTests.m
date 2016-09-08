@@ -28,15 +28,15 @@
     Protocol *protocol = [FEDRuntime protocolFromProperty:@"delegate" object:object];
     RTProtocol *etalonProtocol =
         [RTProtocol protocolWithObjCProtocol:@protocol(FEDExampleProtocol)];
-    STAssertTrue(protocol_isEqual(protocol,[etalonProtocol objCProtocol]),@"");
+    XCTAssertTrue(protocol_isEqual(protocol,[etalonProtocol objCProtocol]),@"");
 }
 
 -(void)testIsWeak{
     id object = [FEDRuntimeExampleClass new];
-    STAssertTrue([FEDRuntime propertyIsWeak:@"assignProperty" object:object], @"");
-    STAssertTrue([FEDRuntime propertyIsWeak:@"weakProperty" object:object], @"");
-    STAssertFalse([FEDRuntime propertyIsWeak:@"copiedProperty" object:object], @"");
-    STAssertFalse([FEDRuntime propertyIsWeak:@"strongProperty" object:object], @"");
+    XCTAssertTrue([FEDRuntime propertyIsWeak:@"assignProperty" object:object], @"");
+    XCTAssertTrue([FEDRuntime propertyIsWeak:@"weakProperty" object:object], @"");
+    XCTAssertFalse([FEDRuntime propertyIsWeak:@"copiedProperty" object:object], @"");
+    XCTAssertFalse([FEDRuntime propertyIsWeak:@"strongProperty" object:object], @"");
 }
 
 @end

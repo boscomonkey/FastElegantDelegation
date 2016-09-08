@@ -38,13 +38,13 @@
     NSMethodSignature *delegateSignature =
         [self.strongDelegate methodSignatureForSelector:selector];
     NSMethodSignature *proxySignature = [self.strongProxy methodSignatureForSelector:selector];
-    STAssertNotNil(delegateSignature,
+    XCTAssertNotNil(delegateSignature,
                    @"Selector: %@",
                    NSStringFromSelector(selector));
-    STAssertNotNil(proxySignature,
+    XCTAssertNotNil(proxySignature,
                    @"Selector: %@",
                    NSStringFromSelector(selector));
-    STAssertEqualObjects(delegateSignature,
+    XCTAssertEqualObjects(delegateSignature,
                          proxySignature,
                          @"Selector: %@",
                          NSStringFromSelector(selector));
@@ -61,7 +61,7 @@
 
 -(void)testSignatureForNonExistentSelector{
     SEL selector = @selector(selector_doesNot_exists);
-    STAssertThrows([self.strongProxy methodSignatureForSelector:selector],@"");
+    XCTAssertThrows([self.strongProxy methodSignatureForSelector:selector],@"");
 }
 
 -(void)testMethodsInProtocol{
@@ -77,11 +77,11 @@
 
 #pragma mark - Delegation
 -(void)testRequiredImplementedMethod{
-    STAssertTrue(13 == [self.strongProxy requiredMethodReturns13], @"");
+    XCTAssertTrue(13 == [self.strongProxy requiredMethodReturns13], @"");
 }
 
 -(void)testOptionalImplementedMethod{
-    STAssertTrue(42 == [self.strongProxy parentOptionalMethodReturns42], @"");
+    XCTAssertTrue(42 == [self.strongProxy parentOptionalMethodReturns42], @"");
 }
 
 -(void)testNotImplementedMethods{
@@ -89,17 +89,17 @@
     id proxy = [FEDProxy
                 proxyWithDelegate:delegate
                 protocol:@protocol(FEDExampleProtocolWithNotExistentMethods)];
-    STAssertThrows([proxy requiredNotImplementedMethod], @"");
-    STAssertNoThrow([proxy optionalNotImplementedMethod], @"");
+    XCTAssertThrows([proxy requiredNotImplementedMethod], @"");
+    XCTAssertNoThrow([proxy optionalNotImplementedMethod], @"");
     // test method not present in protocol
-    STAssertThrows([proxy testNotImplementedMethods], @"");
+    XCTAssertThrows([proxy testNotImplementedMethods], @"");
 }
 
 -(void)testRespondsToSelector{
-    STAssertTrue([self.strongProxy respondsToSelector:@selector(requiredMethodReturns13)], @"");
-    STAssertTrue([self.strongProxy
+    XCTAssertTrue([self.strongProxy respondsToSelector:@selector(requiredMethodReturns13)], @"");
+    XCTAssertTrue([self.strongProxy
                   respondsToSelector:@selector(parentOptionalMethodReturns42)], @"");
-    STAssertFalse([self.strongProxy
+    XCTAssertFalse([self.strongProxy
                    respondsToSelector:@selector(optionalNotImplementedMethod)], @"");
 }
 
@@ -107,7 +107,7 @@
 // see http://stackoverflow.com/questions/13800136/nsproxy-weak-reference-bug-under-arc-on-ios-5
 -(void)testWeakReferencesCompatibilityOnIOS5{
     __weak id weakProxy = self.strongProxy;
-    STAssertNotNil(weakProxy, @"");
+    XCTAssertNotNil(weakProxy, @"");
 }
 
 #pragma mark - Retaining
@@ -120,7 +120,7 @@
         weakProxy = proxy;
     }
     id strongProxy = weakProxy;
-    STAssertNotNil(strongProxy, @"");
+    XCTAssertNotNil(strongProxy, @"");
 }
 
 -(void)testTwoProxiesRetainedByOneDelegate{
@@ -138,8 +138,8 @@
     }
     id strongProxy1 = weakProxy1;
     id strongProxy2 = weakProxy2;
-    STAssertNotNil(strongProxy1, @"");
-    STAssertNotNil(strongProxy2, @"");
+    XCTAssertNotNil(strongProxy1, @"");
+    XCTAssertNotNil(strongProxy2, @"");
 }
 
 -(void)testRetainDelegate{
@@ -151,7 +151,7 @@
                              retainDelegate:YES];
         delegate = nil;
     }
-    STAssertTrue(42 == [proxy parentOptionalMethodReturns42], @"");
+    XCTAssertTrue(42 == [proxy parentOptionalMethodReturns42], @"");
 }
 
 #pragma mark - OnDealloc
@@ -166,7 +166,7 @@
                                      }];
         proxy = nil;
     }
-    STAssertTrue(dispatched, @"");
+    XCTAssertTrue(dispatched, @"");
 }
 
 @end
@@ -190,7 +190,7 @@
     do{
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
         if ([timeoutDate timeIntervalSinceNow] < 0.0){
-            STFail(@"TimeOut");
+            XCTFail(@"TimeOut");
             break;
         }
     }
@@ -217,16 +217,16 @@
         self.delegator.delegate = self.strongDelegate;
         self.delegator.strongDelegate = [FEDExampleDelegate new];
     }
-    STAssertTrue(42 == [self.delegator parentOptionalMethodReturns42], @"");
-    STAssertTrue(42 == [self.delegator.strongDelegate parentOptionalMethodReturns42],@"");
-    STAssertNoThrow([self.delegator.delegate parentOptionalMethod], @"");
-    STAssertNoThrow([self.delegator.strongDelegate parentOptionalMethod], @"");
+    XCTAssertTrue(42 == [self.delegator parentOptionalMethodReturns42], @"");
+    XCTAssertTrue(42 == [self.delegator.strongDelegate parentOptionalMethodReturns42],@"");
+    XCTAssertNoThrow([self.delegator.delegate parentOptionalMethod], @"");
+    XCTAssertNoThrow([self.delegator.strongDelegate parentOptionalMethod], @"");
 }
 
 -(void)testDelegateIsAliveIfProxyIsAlive{
     lock = [NSLock new];
     [lock lock];
-    STAssertTrue(1 == ++_testStep, @"");
+    XCTAssertTrue(1 == ++_testStep, @"");
     // Step 1. Create real delegate;
     __block id delegate = [FEDExampleDelegate new];
     @autoreleasepool {
@@ -236,27 +236,27 @@
      performSelectorInBackground:@selector(delegateIsAliveIfProxyIsAliveBackgroundTest)
      withObject:nil];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-        STAssertTrue(3 == ++_testStep, @"");
+        XCTAssertTrue(3 == ++_testStep, @"");
         // Step 3. Destroy real delegate
         delegate = nil;
         [lock unlock];
     });
     [self waitForCompletion:5];
-    STAssertTrue(5 == ++_testStep, @"");
+    XCTAssertTrue(5 == ++_testStep, @"");
     // Step 5. Finish test.
     lock = nil;
 }
 
 -(void)delegateIsAliveIfProxyIsAliveBackgroundTest{
-    STAssertTrue(2 == ++_testStep, @"");
+    XCTAssertTrue(2 == ++_testStep, @"");
     // Step 2. Save strong reference to proxy;
     id delegate = self.delegator.delegate;
     [lock lock];
-    STAssertTrue(4 == ++_testStep, @"");
+    XCTAssertTrue(4 == ++_testStep, @"");
     // Step 4. Normally real delegate should be nil here.
     // But we extended it's lifetime in delegator's 'delegate' getter
     // so it is still alive
-    STAssertTrue(42 == [delegate parentOptionalMethodReturns42], @"");
+    XCTAssertTrue(42 == [delegate parentOptionalMethodReturns42], @"");
     [lock unlock];
     dispatch_async(dispatch_get_main_queue(), ^{
         _testDone = YES;

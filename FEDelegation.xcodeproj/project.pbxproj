@@ -13,7 +13,6 @@
 		1A71D1331721C08600A67E40 /* FEDMultiProxy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A71D1321721C08600A67E40 /* FEDMultiProxy.mm */; };
 		1A71D1361721C09600A67E40 /* FEDRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A71D1341721C09600A67E40 /* FEDRuntime.m */; };
 		1A71D1391721C0A400A67E40 /* MAObjCRuntime+FEDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A71D1371721C0A400A67E40 /* MAObjCRuntime+FEDAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1AE8CE8C171E8E9400743023 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE8CE6F171E8DD200743023 /* SenTestingKit.framework */; };
 		1AE8CE8D171E8E9400743023 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE8CE51171E8DD100743023 /* UIKit.framework */; };
 		1AE8CE8E171E8E9400743023 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE8CE53171E8DD100743023 /* Foundation.framework */; };
 		1AE8CE94171E8E9400743023 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AE8CE92171E8E9400743023 /* InfoPlist.strings */; };
@@ -42,8 +41,7 @@
 		1AE8CE51171E8DD100743023 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1AE8CE53171E8DD100743023 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1AE8CE55171E8DD100743023 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1AE8CE6F171E8DD200743023 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		1AE8CE8B171E8E9400743023 /* FEDTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FEDTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AE8CE8B171E8E9400743023 /* FEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AE8CE91171E8E9400743023 /* FEDTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FEDTests-Info.plist"; sourceTree = "<group>"; };
 		1AE8CE93171E8E9400743023 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1AE8CE95171E8E9400743023 /* FEDTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEDTests.h; sourceTree = "<group>"; };
@@ -72,7 +70,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AE8CE8C171E8E9400743023 /* SenTestingKit.framework in Frameworks */,
 				1AE8CE8D171E8E9400743023 /* UIKit.framework in Frameworks */,
 				1AE8CE8E171E8E9400743023 /* Foundation.framework in Frameworks */,
 			);
@@ -121,7 +118,7 @@
 		1AE8CE4F171E8DD100743023 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1AE8CE8B171E8E9400743023 /* FEDTests.octest */,
+				1AE8CE8B171E8E9400743023 /* FEDTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,7 +129,6 @@
 				1AE8CE51171E8DD100743023 /* UIKit.framework */,
 				1AE8CE53171E8DD100743023 /* Foundation.framework */,
 				1AE8CE55171E8DD100743023 /* CoreGraphics.framework */,
-				1AE8CE6F171E8DD200743023 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -261,8 +257,8 @@
 			);
 			name = FEDTests;
 			productName = FEDTests;
-			productReference = 1AE8CE8B171E8E9400743023 /* FEDTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 1AE8CE8B171E8E9400743023 /* FEDTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -271,6 +267,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = FED;
+				LastTestingUpgradeCheck = 0730;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Yan Rabovik";
 			};
@@ -419,6 +416,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -426,7 +424,6 @@
 				INFOPLIST_FILE = "FEDTests/FEDTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -436,13 +433,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FEDTests/FEDTests-Prefix.pch";
 				INFOPLIST_FILE = "FEDTests/FEDTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
